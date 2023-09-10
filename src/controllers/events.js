@@ -20,7 +20,12 @@ const getAllEvents = async (req, res) => {
       events = dataParsed.data.listEvents;
     }
 
-    const formattedEvents = events.map(formatEventData);
+    const formattedEventsPromises = events.map(async (event) => {
+      return await formatEventData(event);
+    });
+
+    const formattedEvents = await Promise.all(formattedEventsPromises);
+
     res.json(formattedEvents);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
@@ -51,7 +56,7 @@ const getEventById = async (req, res) => {
     }
 
     if (event) {
-      const formattedEvent = formatEventData(event);
+      const formattedEvent = await formatEventData(event);
       res.json(formattedEvent);
     } else {
       res.status(404).json({ error: "Event not found" });
@@ -94,7 +99,11 @@ const getEventsByStage = async (req, res) => {
     ).filter((event) => event.stage.name === stageType);
 
     if (events.length !== 0) {
-      const formattedEvents = events.map(formatEventData);
+      const formattedEventsPromises = events.map(async (event) => {
+        return await formatEventData(event);
+      });
+
+      const formattedEvents = await Promise.all(formattedEventsPromises);
       res.json(formattedEvents);
     } else {
       res.status(404).json({ error: "Events not found" });

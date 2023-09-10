@@ -1,6 +1,6 @@
 # 1. Data Transformation - approach and reasoning:
 
-The purpose of the formating function "formatEventData" is to extract essential information and present it in a more user-friendly format. The approach involves selectively retrieving only the necessary details and delivering them to the client in a format that is easily understandable.
+The purpose of the formating function "formatEventData" is to extract essential information and present it in a more simplified format. The approach involves selectively retrieving and parsing only the necessary details and delivering them to the client in a format that is easily understandable.
 
 # 2. Code Organization - project structure:
 
